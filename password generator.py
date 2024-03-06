@@ -6,6 +6,8 @@ import string
 import tkinter as tk
 #message box
 from tkinter import messagebox
+#string input from user for tinker
+from tkinter import simpledialog
 
 # generate the password
 def generate_password():
@@ -23,10 +25,10 @@ def generate_password():
 
     characters = ''
     if uppercase:
-        #all characted A-Z
+        #all characted A-Z uppercase
         characters += string.ascii_uppercase
     if lowercase:
-        #all characters a-z
+        #all characters a-z lowercase
         characters += string.ascii_lowercase
     if digits:
         #all digits 1-9
@@ -61,14 +63,15 @@ def save_password():
         messagebox.showerror("Error", "No password generated yet.")
         
 def display_saved():
+    inputed = simpledialog.askstring("Input", "What is the saved password?")
+
     with open("password.txt", "r") as f:
         saved_passwords = f.read()
-        if saved_passwords:
+        if saved_passwords == inputed:
             # Display the contents of the file in a messagebox
             messagebox.showinfo("Saved Passwords", saved_passwords)
         else:
-            # If the file is empty, display a message indicating that no passwords are saved
-            messagebox.showinfo("Saved Passwords", "No passwords saved yet.")
+             messagebox.showinfo("Wrong Password")
 
 
 def main():
