@@ -73,19 +73,21 @@ def save_password():
         # If no password has been generated yet, display an error message box
         messagebox.showerror("Error", "No password generated yet.")
         
+        
 def display_saved():
     create_password_file()
     inputed = simpledialog.askstring("Input", "What is the saved password?")
 
     with open("password.txt", "r") as f:
-        saved_passwords = f.read()
-        if saved_passwords == inputed:
-            # Display the contents of the file in a messagebox
-            messagebox.showinfo("Saved Passwords", saved_passwords)
+        saved_passwords = f.readlines()
+        # Remove whitespace characters like '\n' at the end of each line
+        saved_passwords = [password.strip() for password in saved_passwords]
+        if inputed in saved_passwords:
+            # Display a success message box if the input password matches any saved password
+            messagebox.showinfo("Password Match", "Password matched with saved passwords.",saved_passwords)
         else:
-            #if password wrong
-             messagebox.showerror("Wrong Password")
-
+            # Display an error message box if the input password does not match any saved password
+            messagebox.showerror("Password Mismatch", "Password does not match any saved passwords.")
 
 def main():
     global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label
