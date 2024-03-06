@@ -8,7 +8,16 @@ import tkinter as tk
 from tkinter import messagebox
 #string input from user for tinker
 from tkinter import simpledialog
+import os
 
+#if file is there do nothing if it isnt make it 
+def create_password_file():
+    if not os.path.exists("password.txt"):
+        # Create the file if it doesn't exist
+        with open("password.txt", "w") as f:
+            pass  # Do nothing, file is created
+        
+        
 # generate the password
 def generate_password():
     
@@ -53,7 +62,7 @@ def save_password():
     # Check if a password has been generated
     if password:
         # If a password exists, open a text file named "password.txt" for writing
-        with open("password.txt", "w") as f:
+        with open("password.txt", "a") as f:
             # Write the generated password to the file
             f.write(password)
             # Display a success message box indicating that the password has been saved
@@ -71,7 +80,8 @@ def display_saved():
             # Display the contents of the file in a messagebox
             messagebox.showinfo("Saved Passwords", saved_passwords)
         else:
-             messagebox.showinfo("Wrong Password")
+            #if password wrong
+             messagebox.showerror("Wrong Password")
 
 
 def main():
