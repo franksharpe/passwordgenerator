@@ -6,8 +6,9 @@ import os
 import random
 import string
 from tkinter import *
-import CTkMessagebox
 import customtkinter
+import CTkMessagebox
+from customtkinter.windows.widgets.ctkmessagebox import CTkMessagebox
 
 # Function to create the password file if it doesn't exist
 def create_password_file():
