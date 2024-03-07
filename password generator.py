@@ -68,27 +68,34 @@ def main():
 
     root = customtkinter.CTk()
     root.title("Password Generator")
-    root.geometry("350x550")
+    root.geometry("370x550")
     customtkinter.set_default_color_theme("dark-blue")
+    
+    app = customtkinter.CTk()
+    app.grid_rowconfigure(0, weight=1)
+    app.grid_columnconfigure(0, weight=1)   
+    
+    # create CTk scrollbar
+    ctk_textbox_scrollbar = customtkinter.CTkScrollbar(app)
+    ctk_textbox_scrollbar.grid(row=0, column=1, sticky="ns")
 
     # Entry for password length
     length_label = customtkinter.CTkLabel(master=root, text="Enter the length of the password:")
     length_label.grid(row=0, column=0,padx=10, pady=5)
     
-    length_entry = customtkinter.CTkEntry(master=root, placeholder_text="Enter password length")
+    length_entry = customtkinter.CTkEntry(master=root, placeholder_text="Password Length")
     length_entry.grid(row=0, column=1, padx=10, pady=5)
     
     # password types
-    checkbutton_options = {"bg": "lightblue", "fg": "black", "font": ("Arial", 12)}
     uppercase_var = tk.BooleanVar()
     lowercase_var = tk.BooleanVar()
     digits_var = tk.BooleanVar()
     symbols_var = tk.BooleanVar()
 
-    uppercase_check = tk.Checkbutton(root, text="Include uppercase letters?", variable=uppercase_var, **checkbutton_options)
-    lowercase_check = tk.Checkbutton(root, text="Include lowercase letters?", variable=lowercase_var, **checkbutton_options)
-    digits_check = tk.Checkbutton(root, text="Include digits?", variable=digits_var, **checkbutton_options)
-    symbols_check = tk.Checkbutton(root, text="Include symbols?", variable=symbols_var, **checkbutton_options)
+    uppercase_check = customtkinter.CTkCheckBox(master=root, text="Include uppercase letters?", variable=uppercase_var)
+    lowercase_check = customtkinter.CTkCheckBox(master=root, text="Include lowercase letters?", variable=lowercase_var)
+    digits_check = customtkinter.CTkCheckBox(master=root, text="Include digits?", variable=digits_var)
+    symbols_check = customtkinter.CTkCheckBox(master=root, text="Include symbols?", variable=symbols_var)
 
     uppercase_check.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
     lowercase_check.grid(row=2, column=0, columnspan=2, padx=10, pady=5)
@@ -96,19 +103,19 @@ def main():
     symbols_check.grid(row=4, column=0, columnspan=2, padx=10, pady=5)
 
     # Button to generate password
-    generate_button = tk.Button(root, text="Generate Password", command=generate_password, bg="green", fg="white", font=("Arial", 12), width=15, height=2)
+    generate_button = customtkinter.CTkButton(master=root, text="Generate Password", command=generate_password)
     generate_button.grid(row=5, column=0, columnspan=2, padx=10, pady=5)
 
     # Label to display generated password
-    password_label = tk.Label(root, text="Your generated password will appear here", wraplength=200)
+    password_label = customtkinter.CTkLabel(master=root, text="Your generated password will appear here")
     password_label.grid(row=6, column=0, columnspan=2, padx=10, pady=5)
 
     # Button to save password
-    save_button = tk.Button(root, text="Save Password", command=save_password, bg="green", fg="white", font=("Arial", 12), width=15, height=2)
+    save_button = customtkinter.CTkButton(master=root, text="Save Password", command=save_password)
     save_button.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
 
     # Button to display saved passwords
-    display_button = tk.Button(root, text="Display Passwords", command=display_saved, bg="green", fg="white", font=("Arial", 12), width=15, height=2)
+    display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=display_saved)
     display_button.grid(row=8, column=0, columnspan=2, padx=10, pady=5)
 
     root.mainloop()
