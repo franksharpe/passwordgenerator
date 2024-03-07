@@ -70,7 +70,7 @@ def main():
     root = customtkinter.CTk()
     root.title("Password Generator")
     root.geometry("370x550")
-    customtkinter.set_default_color_theme("dark-blue")
+    customtkinter.set_default_color_theme("blue")
     
     app = customtkinter.CTk()
     app.grid_rowconfigure(0, weight=1)
