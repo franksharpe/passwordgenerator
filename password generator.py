@@ -4,6 +4,7 @@ import os
 import random
 import string
 from tkinter import *
+import CTkMessagebox
 import customtkinter
 
 # Function to create the password file if it doesn't exist
@@ -32,11 +33,11 @@ def generate_password():
         characters += string.punctuation
 
     if not any((uppercase, lowercase, digits, symbols)):
-        messagebox.showerror("Error", "Please select at least one character type.")
+        CTkMessagebox("Error", "Please select at least one character type.")
         return
 
     password = ''.join(random.choice(characters) for _ in range(length))
-    password_label.config(text=password)
+    password_label.configure(text=password)
 
 # Function to save the generated password to a file
 def save_password():
@@ -46,22 +47,22 @@ def save_password():
     if password:
         with open("password.txt", "a") as f:
             f.write(password)
-        messagebox.showinfo("Success", "Password saved to password.txt")
+        CTkMessagebox.CTkMessagebox(title="Success", message="Password saved")
     else:
-        messagebox.showerror("Error", "No password generated yet.")
-
+        CTkMessagebox(title="Error", message="No password generated yet.", icon="cancel")
+'''
 # Function to display saved passwords
 def display_saved():
     create_password_file()
-    inputed = simpledialog.askstring("Input", "What is the saved password?")
+    inputed = CTkMessagebox("Input", "What is the saved password?")
     with open("password.txt", "r") as f:
         saved_passwords = f.readlines()
         saved_passwords = [password.strip() for password in saved_passwords]
         if inputed in saved_passwords:
-            messagebox.showinfo("Password Match", "Password matched with saved passwords.", save_password)
+            CTkMessagebox(title="Password Match", message="Password matched with saved passwords." + save_password)
         else:
-            messagebox.showerror("Password Mismatch", "Password does not match any saved passwords.")
-
+            CTkMessagebox(title="Password Mismatch", message="Password does not match any saved passwords.", icon="cancel")
+'''
 # Main function to create and configure the GUI
 def main():
     global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label
@@ -109,14 +110,14 @@ def main():
     # Label to display generated password
     password_label = customtkinter.CTkLabel(master=root, text="Your generated password will appear here")
     password_label.grid(row=6, column=0, columnspan=2, padx=10, pady=5)
-
+    
     # Button to save password
     save_button = customtkinter.CTkButton(master=root, text="Save Password", command=save_password)
     save_button.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
-
+    
     # Button to display saved passwords
-    display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=display_saved)
-    display_button.grid(row=8, column=0, columnspan=2, padx=10, pady=5)
+    #display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=display_saved)
+    #display_button.grid(row=8, column=0, columnspan=2, padx=10, pady=5)
 
     root.mainloop()
 
