@@ -83,7 +83,7 @@ def save_password():
 #display saved passwords 
 def display_saved():
     create_password_file()
-    inputed = simpledialog.askstring("Input", "What is the saved password?")
+    inputed = simpledialog.askstring("Input", "What is the saved password?" , show="*")
 
     with open("password.txt", "r") as f:
         saved_passwords = f.readlines()
