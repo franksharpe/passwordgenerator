@@ -83,11 +83,12 @@ def save_password():
 #display saved passwords 
 def display_saved():
     create_password_file()
-    inputed = simpledialog.askstring("Input", "What is the saved password?" , show="*")
+    #input the password to check it with a pop up window 
+    inputed = simpledialog.askstring( "Input", "What is the saved password?" , show="*" )
 
     with open("password.txt", "r") as f:
         saved_passwords = f.readlines()
-        # Remove whitespace characters like '\n' at the end of each line
+        # Remove whitespace characters 
         saved_passwords = [password.strip() for password in saved_passwords]
         if inputed in saved_passwords:
             # Display a success message box if the input password matches any saved password
