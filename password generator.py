@@ -1,3 +1,5 @@
+# password random generator which allows you to save it
+
 import tkinter as tk
 from tkinter import messagebox, simpledialog , ttk 
 import os
@@ -49,36 +51,37 @@ def save_password():
             f.write(password)
         CTkMessagebox.CTkMessagebox(title="Success", message="Password saved")
     else:
-        CTkMessagebox(title="Error", message="No password generated yet.", icon="cancel")
-'''
+        CTkMessagebox.CTkMessagebox(title="Error", message="No password generated yet.", icon="cancel")
+
 # Function to display saved passwords
 def display_saved():
     create_password_file()
-    inputed = CTkMessagebox("Input", "What is the saved password?")
+    CTkMessagebox.CTkMessagebox( title="What is the saved password?" , message=inputed)
+        
     with open("password.txt", "r") as f:
         saved_passwords = f.readlines()
         saved_passwords = [password.strip() for password in saved_passwords]
         if inputed in saved_passwords:
-            CTkMessagebox(title="Password Match", message="Password matched with saved passwords." + save_password)
+            CTkMessagebox.CTkMessagebox(title="Password Match", message="Password matched with saved passwords." + save_password)
         else:
-            CTkMessagebox(title="Password Mismatch", message="Password does not match any saved passwords.", icon="cancel")
-'''
+            CTkMessagebox.CTkMessagebox(title="Password Mismatch", message="Password does not match any saved passwords.", icon="cancel")
+
 # Main function to create and configure the GUI
 def main():
-    global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label
+    global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label , inputed
 
     root = customtkinter.CTk()
     root.title("Password Generator")
     root.geometry("370x550")
     customtkinter.set_default_color_theme("blue")
     
-    app = customtkinter.CTk()
-    app.grid_rowconfigure(0, weight=1)
-    app.grid_columnconfigure(0, weight=1)   
+  
+   # root.grid_rowconfigure(0, weight=1)
+    #root.grid_columnconfigure(0, weight=1)   
     
     # create CTk scrollbar
-    ctk_textbox_scrollbar = customtkinter.CTkScrollbar(app)
-    ctk_textbox_scrollbar.grid(row=0, column=1, sticky="ns")
+    #ctk_textbox_scrollbar = customtkinter.CTkScrollbar(root)
+    #ctk_textbox_scrollbar.grid(row=1, column=5, sticky="ns")
 
     # Entry for password length
     length_label = customtkinter.CTkLabel(master=root, text="Enter the length of the password:")
@@ -115,10 +118,28 @@ def main():
     save_button = customtkinter.CTkButton(master=root, text="Save Password", command=save_password)
     save_button.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
     
-    # Button to display saved passwords
-    #display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=display_saved)
-    #display_button.grid(row=8, column=0, columnspan=2, padx=10, pady=5)
+    #Button to display saved passwords
+    display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=display_saved)
+    display_button.grid(row=8, column=0, columnspan=2, padx=10, pady=5)
+    
+    
+    inputed = customtkinter.CTkEntry(master=root , placeholder_text="What is the password")
+    #class ToplevelWindow(customtkinter.CTkToplevel):
+     #   def __init__(self, *args, **kwargs):
+      #      super().__init__(*args, **kwargs)
+       #     self.geometry("400x300")
 
+     #       self.label = customtkinter.CTkLabel(self, text="ToplevelWindow")
+      #      self.label.pack(padx=20, pady=20)
+            
+       # def open_toplevel(self):
+        #    if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
+         #       self.toplevel_window = ToplevelWindow(self)  # create window if its None or destroyed
+          #  else:
+           #     self.toplevel_window.focus()  # if window exists focus it
+            
+    
+    
     root.mainloop()
 
 # Check if the script is being run directly
