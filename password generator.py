@@ -1,8 +1,10 @@
 import tkinter as tk
-from tkinter import messagebox, simpledialog
+from tkinter import messagebox, simpledialog , ttk 
 import os
 import random
 import string
+from tkinter import *
+import customtkinter
 
 # Function to create the password file if it doesn't exist
 def create_password_file():
@@ -64,16 +66,18 @@ def display_saved():
 def main():
     global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label
 
-    root = tk.Tk()
+    root = customtkinter.CTk()
     root.title("Password Generator")
-    root.configure(bg="lightblue")
-    
-    # Entry for password length
-    length_label = tk.Label(root, text="Enter the length of the password:")
-    length_label.grid(row=0, column=0, padx=10, pady=5)
-    length_entry = tk.Entry(root, bg="lightgray", fg="black", font=("Arial", 12))
-    length_entry.grid(row=0, column=1, padx=10, pady=5)
+    root.geometry("350x550")
+    customtkinter.set_default_color_theme("dark-blue")
 
+    # Entry for password length
+    length_label = customtkinter.CTkLabel(master=root, text="Enter the length of the password:")
+    length_label.grid(row=0, column=0,padx=10, pady=5)
+    
+    length_entry = customtkinter.CTkEntry(master=root, placeholder_text="Enter password length")
+    length_entry.grid(row=0, column=1, padx=10, pady=5)
+    
     # password types
     checkbutton_options = {"bg": "lightblue", "fg": "black", "font": ("Arial", 12)}
     uppercase_var = tk.BooleanVar()
