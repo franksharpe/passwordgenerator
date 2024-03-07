@@ -108,7 +108,7 @@ def main():
     #title 
     root.title("Password Generator")
     #size
-    root.geometry("370x550")
+    root.geometry("430x932")
     #colour theme either can have green , dark blue , blue .jason files can change it 
     customtkinter.set_default_color_theme("blue")
     
