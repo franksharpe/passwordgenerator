@@ -161,20 +161,21 @@ def main():
     def show_button():
         label.configure(placeholder_text="Enter Password to View")
         label.grid()
-        print("Entered:", display_saved)
+        
 
     
     #Button to display saved passwords
     display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=show_button)
     display_button.grid(row=8, column=0, columnspan=2, padx=10, pady=5)
     
-    # Create entry box when clciked 
+    # Create entry box when clicked 
     label = customtkinter.CTkEntry(master=root, placeholder_text="")
-    label.grid(row=9 , column=0, padx=10, pady=5)
+    print("Entered:", display_saved)
+    label.grid(row=9 , column=0, columnspan=2, padx=10, pady=5)
     label.grid_remove()  # Hide the label initially
     
     # Bind the <Return> event to the on_enter function
-    label.bind("<Return>", )
+    label.bind("<Return>", display_saved )
     
 
     
