@@ -2,7 +2,8 @@
 
 #gui
 import tkinter as tk
-from tkinter import messagebox, simpledialog , ttk 
+from tkinter import messagebox, simpledialog
+from ttkthemes import ThemedStyle
 #operating system
 import os
 #randomize strings
@@ -14,6 +15,7 @@ from tkinter import *
 import customtkinter
 #messagebox
 import CTkMessagebox
+
 
 
 # Function to create the password file if it doesn't exist
@@ -96,53 +98,40 @@ def clear_file(filename):
     except Exception as e:
         print(f"Error clearing file '{filename}': {e}")  # Debugging: Print any error that occurs
 
-
+def get_password():
+    # Input the password from the entry box
+    inputed = label.get()
+    print("Entered:", inputed) 
+    
 def display_saved(event=None):
     create_password_file()
-    
-    # Input the password to check it with a pop-up window  
-    inputed = str(label.get())
 
+    def get_password():
+        # Input the password from the entry box
+        inputed = label.get()
+        print("Entered:", inputed) 
+
+    # Open and read the password file
     with open("password.txt", "r") as d:
         saved_passwords = d.readlines()
         # Remove whitespace characters 
         saved_passwords = [password.strip() for password in saved_passwords]
-        if inputed in saved_passwords:
-            # Concatenate saved passwords into a single string
-            passwords_string = "\n".join(saved_passwords)
-        
-            # Display a message box with options
-            response_object = CTkMessagebox.CTkMessagebox(title="Password Match", 
-                                                    message=f"Saved passwords:\n \n \n {passwords_string} \n \n \n Would you like to clear saved passwords?",
-                                                    icon="question", 
-                                                    option_1="No", 
-                                                    option_2="Yes")
-            # Wait for user interaction with the message box
-            response_object.wait_window()
-            
-            # Now, extract the user's choice from the message box object
-            response = response_object.get()
-            
-            # Check user response
-            print("Response:", response)  # Debugging: Print the response
-            
-        
-            #if yes overwrites file
-            if response == "Yes":
-                print("Yes clicked") # see if yes clicked
-                filename = "password.txt"
-                clear_file(filename)
-            #if no then exits the program
-            elif response == "No":
-                exit()
-        else:
-            # Display an error message box if the input password does not match any saved password
-            CTkMessagebox.CTkMessagebox(title="Password Mismatch", message="Password does not match any saved passwords." , icon="cancel")
 
+    # Display a message box with options
+    response = messagebox.askyesno("Password Match", f"Saved passwords:\n\n\n{saved_passwords}\n\n\nWould you like to clear saved passwords?")
+
+    # Check user response
+    if response:
+        print("Yes clicked")
+        filename = "password.txt"
+        clear_file(filename)
+    else:
+        exit()
 # Main function to create and configure the GUI
-def main():
+
+
     #global the function able to access
-    global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label , label 
+    global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label , label , labele
 
     #root is the name of app
     root = customtkinter.CTk()
@@ -200,9 +189,9 @@ def main():
     def show_button():
         label.configure(placeholder_text="Enter Password to View")
         label.grid()
+        labele.configure(text="Get Input")
+        labele.grid()
         
-
-    
     #Button to display saved passwords
     display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=show_button)
     display_button.grid(row=8, column=0, columnspan=2, padx=10, pady=5)
@@ -216,8 +205,10 @@ def main():
     # Bind the <Return> event to the on_enter function
     label.bind("<Return>", display_saved )
     
-    
-   
+    # Create a button to retrieve the entered text
+    labele = customtkinter.CTkButton(master= root, text="", command=get_password)
+    labele.grid(row=10, column=1, padx=10, pady=5)
+    labele.grid_remove() 
 
     
         
@@ -239,6 +230,3 @@ def main():
     #loops thr app keeps it open 
     root.mainloop()
 
-# Check if the script is being run directly
-if __name__ == "__main__":
-    main()
