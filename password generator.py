@@ -87,11 +87,15 @@ def save_password():
         # If no password is generated, display an error message
         CTkMessagebox.CTkMessagebox(title="Error", message="No password generated yet.", icon="cancel")
         
-def delete():
-    with open("password.txt" , "w") as e:
-        e.write("")
-    
-    
+# Function to clear the contents of a file
+def clear_file(filename):
+    try:
+        with open(filename, 'w'):  # Open the file in write mode (truncate)
+            pass  # No need to write anything, the file will be truncated to zero length
+        print(f"File '{filename}' cleared successfully.")  # Debugging: Print a message indicating success
+    except Exception as e:
+        print(f"Error clearing file '{filename}': {e}")  # Debugging: Print any error that occurs
+
 
 def display_saved(event=None):
     create_password_file()
@@ -107,25 +111,25 @@ def display_saved(event=None):
             # Concatenate saved passwords into a single string
             passwords_string = "\n".join(saved_passwords)
         
-        # Display a message box with options
-        response = CTkMessagebox.CTkMessagebox(title="Password Match", 
-                                                message=f"Password matched with saved passwords:\n {passwords_string} Would you like to clear passwords?",
-                                                icon="question", 
-                                                option_1="No", 
-                                                option_2="Yes")
+            # Display a message box with options
+            response = CTkMessagebox.CTkMessagebox(title="Password Match", 
+                                                    message=f"Saved passwords:\n \n \n {passwords_string} \n \n \n Would you like to clear saved passwords?",
+                                                    icon="question", 
+                                                    option_1="No", 
+                                                    option_2="Yes")
         
-        # Check user response
+            # Check user response
         
-        #if yes overwrites file
-        if response == "Yes":
-            delete()
-        #if no then exits the program
-        elif response == "No":
-            exit()
-
+            #if yes overwrites file
+            if response == "Yes":
+                filename = "password.txt"
+                clear_file(filename)
+            #if no then exits the program
+            elif response == "No":
+                exit()
         else:
             # Display an error message box if the input password does not match any saved password
-            CTkMessagebox.CTkMessagebox(title="Password Mismatch", messsage="Password does not match any saved passwords." , icon="cancle")
+            CTkMessagebox.CTkMessagebox(title="Password Mismatch", message="Password does not match any saved passwords." , icon="cancel")
 
 # Main function to create and configure the GUI
 def main():
