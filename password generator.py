@@ -46,6 +46,16 @@ def save_password():
         messagebox.showinfo("Success", f"Password saved to {file_path}")
     else:
         messagebox.showerror("Error", "No password generated yet.")
+        
+# Function to clear the contents of a file
+def clear_file(filename):
+    try:
+        with open(filename, 'w'):  # Open the file in write mode (truncate)
+            pass  # No need to write anything, the file will be truncated to zero length
+        print(f"File '{filename}' cleared successfully.")  # Debugging: Print a message indicating success
+    except Exception as e:
+        print(f"Error clearing file '{filename}': {e}")  # Debugging: Print any error that occurs
+
 
 def display_saved(event=None):
     create_password_file()
@@ -103,7 +113,7 @@ save_button.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
 def show_button():
     label.configure(placeholder_text="Enter Password to View")
     label.grid()
-    labele.configure(text="Get Input")
+    labele.configure(text="Check" , width=5 , height=2)
     labele.grid()
 
 display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=show_button)
@@ -115,8 +125,8 @@ label.grid_remove()
 
 label.bind("<Return>", display_saved )
 
-labele = customtkinter.CTkButton(master=root, text="", command=get_password)
-labele.grid(row=10, column=1, padx=10, pady=5)
+labele = customtkinter.CTkButton(master=root, text="", command=get_password , width=0, height=0)
+labele.grid(row=10, column=0, columnspan=2, padx=10, pady=5)
 labele.grid_remove() 
 
 root.mainloop()
