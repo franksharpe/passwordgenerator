@@ -64,41 +64,67 @@ def generate_password():
 
 # Function to save the generated password to a file
 def save_password():
-    #creates file if its not there
-    create_password_file()
-    password = password_label.cget("text")
-   
-    #if there is a password it saves it 
-    if password:
-        # (a) means append and will let you write without re writting the document 
-        with open("password.txt", "a") as f:
-            #writes password in document
-            f.write(password)
-        CTkMessagebox.CTkMessagebox(title="Success", message="Password saved")
-        
-        #if not password wont save and give error message
-    else:
-        CTkMessagebox.CTkMessagebox(title="Error", message="No password generated yet.", icon="cancel")
-
-#display saved passwords 
-def display_saved():
+    # Create the password file if it doesn't exist
     create_password_file()
     
-    #input the password to check it with a pop up window  
-    inputed=str(label.get())
+    password = password_label.cget("text")
 
-    with open("password.txt", "r") as f:
-        saved_passwords = f.readlines()
+    # Check if there is a password generated
+    if password:
+        # Get the current working directory
+        directory = os.getcwd()
+        # Construct the full path to the password file
+        file_path = os.path.join(directory, "password.txt")
+        
+        # Open the file in append mode and write the password
+        with open(file_path, "a") as e:
+            # Add a newline character after each password to separate them
+            e.write(password + "\n")
+        
+        # Display a success message with the file path
+        CTkMessagebox.CTkMessagebox(title="Success", message=f"Password saved to {file_path}")
+    else:
+        # If no password is generated, display an error message
+        CTkMessagebox.CTkMessagebox(title="Error", message="No password generated yet.", icon="cancel")
+        
+def delete():
+    with open("password.txt" , "w") as e:
+        e.write("")
+    
+    e.close()
+
+def display_saved(event=None):
+    create_password_file()
+    
+    # Input the password to check it with a pop-up window  
+    inputed = str(label.get())
+
+    with open("password.txt", "r") as d:
+        saved_passwords = d.readlines()
         # Remove whitespace characters 
         saved_passwords = [password.strip() for password in saved_passwords]
         if inputed in saved_passwords:
-            # Display a success message box if the input password matches any saved password
-            messagebox.showinfo("Password Match", "Password matched with saved passwords.",saved_passwords)
-            messagebox.showinfo("Password Match", "Password matched with saved passwords.", save_password)
+            # Concatenate saved passwords into a single string
+            passwords_string = "\n".join(saved_passwords)
+        # Display a message box with options
+        response = CTkMessagebox.CTkMessagebox(title="Password Match", 
+                                                message="Password matched with saved passwords:\n {passwords_string} Would you like to clear passwords?",
+                                                icon="question", 
+                                                option_1="No", 
+                                                option_2="Yes")
+        
+        # Check user response
+        
+        #if yes overwrites file
+        if response == "Yes":
+            delete()
+        #if no then exits the program
+        elif response == "No":
+            exit()
+
         else:
             # Display an error message box if the input password does not match any saved password
-            messagebox.showerror("Password Mismatch", "Password does not match any saved passwords.")
-        
+            CTkMessagebox.CTkMessagebox(title="Password Mismatch", messsage="Password does not match any saved passwords." , icon="cancle")
 
 # Main function to create and configure the GUI
 def main():
@@ -177,6 +203,8 @@ def main():
     # Bind the <Return> event to the on_enter function
     label.bind("<Return>", display_saved )
     
+    
+   
 
     
         
