@@ -112,16 +112,24 @@ def display_saved(event=None):
             passwords_string = "\n".join(saved_passwords)
         
             # Display a message box with options
-            response = CTkMessagebox.CTkMessagebox(title="Password Match", 
+            response_object = CTkMessagebox.CTkMessagebox(title="Password Match", 
                                                     message=f"Saved passwords:\n \n \n {passwords_string} \n \n \n Would you like to clear saved passwords?",
                                                     icon="question", 
                                                     option_1="No", 
                                                     option_2="Yes")
-        
+            # Wait for user interaction with the message box
+            response_object.wait_window()
+            
+            # Now, extract the user's choice from the message box object
+            response = response_object.get()
+            
             # Check user response
+            print("Response:", response)  # Debugging: Print the response
+            
         
             #if yes overwrites file
             if response == "Yes":
+                print("Yes clicked") # see if yes clicked
                 filename = "password.txt"
                 clear_file(filename)
             #if no then exits the program
