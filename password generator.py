@@ -84,8 +84,8 @@ def save_password():
 def display_saved():
     create_password_file()
     
-    #input the password to check it with a pop up window 
-    inputed = simpledialog.askstring( "Input", "What is the saved password?" , show="*" )
+    #input the password to check it with a pop up window  
+    inputed=str(label.get())
 
     with open("password.txt", "r") as f:
         saved_passwords = f.readlines()
@@ -103,7 +103,7 @@ def display_saved():
 # Main function to create and configure the GUI
 def main():
     #global the function able to access
-    global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label , label , button ,passworde
+    global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label , label 
 
     #root is the name of app
     root = customtkinter.CTk()
