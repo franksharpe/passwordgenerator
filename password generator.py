@@ -83,6 +83,7 @@ def save_password():
 #display saved passwords 
 def display_saved():
     create_password_file()
+    
     #input the password to check it with a pop up window 
     inputed = simpledialog.askstring( "Input", "What is the saved password?" , show="*" )
 
@@ -97,11 +98,12 @@ def display_saved():
         else:
             # Display an error message box if the input password does not match any saved password
             messagebox.showerror("Password Mismatch", "Password does not match any saved passwords.")
+        
 
 # Main function to create and configure the GUI
 def main():
     #global the function able to access
-    global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label , inputed
+    global length_entry, uppercase_var, lowercase_var, digits_var, symbols_var, password_label , label , button ,passworde
 
     #root is the name of app
     root = customtkinter.CTk()
@@ -155,12 +157,23 @@ def main():
     save_button = customtkinter.CTkButton(master=root, text="Save Password", command=save_password)
     save_button.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
     
+    #uses function to display the password once clicked will show button below
+    def show_button():
+        label.configure(placeholder_text="Enter Password to View")
+        label.grid()
+
+    
     #Button to display saved passwords
-    display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=display_saved)
+    display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=show_button)
     display_button.grid(row=8, column=0, columnspan=2, padx=10, pady=5)
     
+    # Create entry box when clciked 
+    label = customtkinter.CTkEntry(master=root, placeholder_text="")
+    label.grid(row=9 , column=0, padx=10, pady=5)
+    label.grid_remove()  # Hide the label initially
+
     
-    
+        
     #class ToplevelWindow(customtkinter.CTkToplevel):
      #   def __init__(self, *args, **kwargs):
       #      super().__init__(*args, **kwargs)
