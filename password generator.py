@@ -91,7 +91,7 @@ def delete():
     with open("password.txt" , "w") as e:
         e.write("")
     
-    e.close()
+    
 
 def display_saved(event=None):
     create_password_file()
@@ -106,9 +106,10 @@ def display_saved(event=None):
         if inputed in saved_passwords:
             # Concatenate saved passwords into a single string
             passwords_string = "\n".join(saved_passwords)
+        
         # Display a message box with options
         response = CTkMessagebox.CTkMessagebox(title="Password Match", 
-                                                message="Password matched with saved passwords:\n {passwords_string} Would you like to clear passwords?",
+                                                message=f"Password matched with saved passwords:\n {passwords_string} Would you like to clear passwords?",
                                                 icon="question", 
                                                 option_1="No", 
                                                 option_2="Yes")
