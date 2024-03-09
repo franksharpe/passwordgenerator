@@ -225,26 +225,40 @@ generate_button.grid(row=5, column=0, columnspan=2, padx=10, pady=5)
 
 # password label about where will generate
 
-password_label = customtkinter.CTkLabel(master=root, text="Your generated password will appear here")
-password_label.grid(row=6, column=0, columnspan=2, padx=10, pady=5)
+password_label = customtkinter.CTkLabel(master=root, text="")
+password_label.grid(row=6, column=0, columnspan=2, sticky="nsew", padx=(10, 0))  # Centered vertically and horizontally
+
 
 
 def copy_to_clipboard():
+    
     # Get the text to copy
-    text_to_copy = "Text to copy to clipboard"  # Replace with your actual text
+    
+    text_to_copy = password_label.cget("text")
+    print(text_to_copy)
     
     # Copy the text to the clipboard
+    
     pyperclip.copy(text_to_copy)
     
     # Show a message box to indicate success
+    
     messagebox.showinfo("Copy to Clipboard", "Text copied to clipboard successfully!")
    
-# Load the copy icon image
-copy_icon = tk.PhotoImage(file="copy.png")
+# Load the copy icon image with a transparent background
 
-# Create the button with the copy icon
-copy_button = customtkinter.CTkButton(master=root, text="Copy", image=copy_icon, compound="left", command=copy_to_clipboard)
-copy_button.grid(row=6, column=0, padx=10, pady=6)
+copy_icon = tk.PhotoImage(file="copy.png").subsample(2)  # Adjust subsample factor as needed
+
+
+# Create a label widget for the button with a transparent background
+
+copy_label = tk.Label(root, image=copy_icon, bg="#242424")
+copy_label.grid(row=6, column=1, sticky="nsew", padx=(0, 10))  # Centered vertically and horizontally
+
+# Bind the copy_to_clipboard function to the label
+copy_label.bind("<Button-1>", copy_to_clipboard)
+
+
 
 # save password button 
 
