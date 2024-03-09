@@ -26,6 +26,7 @@ import CTkMessagebox
 import pyperclip
 
 
+
 #creates file if its not there already
 def create_password_file():
     if not os.path.exists("password.txt"):
@@ -228,28 +229,34 @@ generate_button.grid(row=5, column=0, columnspan=2, padx=10, pady=5)
 password_label = customtkinter.CTkLabel(master=root, text="")
 password_label.grid(row=6, column=0, columnspan=2, sticky="nsew", padx=(10, 0))  # Centered vertically and horizontally
 
+# Function to hide the temporary message
+def hide_temp_message():
+    temp_message_label.config(text="")
+    temp_message_label.place_forget()
 
+# Function to display a temporary message
+def display_temp_message(message, duration=2000):
+    temp_message_label.config(text="Text Copied Successfully")
+    temp_message_label.place(relx=0.5, rely=0.9, anchor="center")  # Place label at the bottom
+    root.after(duration, hide_temp_message)
+
+# Create a label widget for displaying temporary messages
+temp_message_label = tk.Label(root, text="", bg="white", padx=10, pady=5 , width=420)
 
 def copy_to_clipboard():
-    
+    global temp_message_label 
     print("Label clicked!")
     
     # Get the text to copy
-    
     text_to_copy = password_label.cget("text")
     print(text_to_copy)
     
     # Copy the text to the clipboard
-    
     pyperclip.copy(text_to_copy)
     
     # Show a message box to indicate success
-    
-    CTkMessagebox.CTkMessagebox(title="Copy to Clipboard", message="Text copied to clipboard successfully!")
-    
+    display_temp_message("Password copied to clipboard")
 
-
-   
 # Load the copy icon image with a transparent background
 copy_icon = tk.PhotoImage(file="copy.png").subsample(1)  # Adjust subsample factor as needed
 
@@ -262,14 +269,9 @@ copy_label.config(image=copy_icon, bg="#242424", padx=5, pady=5)  # Adjust padx 
 # Pack or grid the label widget as desired
 copy_label.grid(row=6, column=1, sticky="nsew", padx=(0, 10))  # Centered vertically and horizontally
 
+copy_label.bind("<Button-1>", lambda event: (copy_to_clipboard(), display_temp_message("Password copied to clipboard")))
 
-# Create a label widget for the button with a transparent background
 
-copy_label = tk.Label(root, image=copy_icon, bg="#242424")
-copy_label.grid(row=6, column=1, sticky="nsew", padx=(0, 10))  # Centered vertically and horizontally
-
-# Bind the copy_to_clipboard function to the label without passing any arguments
-copy_label.bind("<Button-1>", lambda event: copy_to_clipboard())
 
 
 
