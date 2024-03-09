@@ -38,8 +38,20 @@ def create_password_file():
 
 def generate_password():
     
+    global length
+    
     #length in interger
     length = int(length_entry.get())
+    
+
+    
+    # Check if the length exceeds 20 characters or is less than 1
+    if length > 20 or length < 1:
+        return
+     
+     
+    # Update the columnspan of the Generate Password button based on the length
+    password_label.grid_configure(columnspan=2 if length <= 9 else 1)
     
     #uppercase
     uppercase = uppercase_var.get()
@@ -219,10 +231,13 @@ lowercase_check.grid(row=2, column=0, columnspan=2, padx=10, pady=5)
 digits_check.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
 symbols_check.grid(row=4, column=0, columnspan=2, padx=10, pady=5)
 
-# generate button
+
+
+# Generate button
 
 generate_button = customtkinter.CTkButton(master=root, text="Generate Password", command=generate_password)
 generate_button.grid(row=5, column=0, columnspan=2, padx=10, pady=5)
+
 
 # password label about where will generate
 
