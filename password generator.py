@@ -21,6 +21,11 @@ import customtkinter
 #error msg
 import CTkMessagebox
 
+#copy to clipboard
+
+import pyperclip
+
+
 #creates file if its not there already
 def create_password_file():
     if not os.path.exists("password.txt"):
@@ -150,6 +155,24 @@ def get_password():
     
     #prints what was entered into console 
     print("Entered:", inputed) 
+    
+    
+
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 #root is the name
 root = customtkinter.CTk()
@@ -204,6 +227,24 @@ generate_button.grid(row=5, column=0, columnspan=2, padx=10, pady=5)
 
 password_label = customtkinter.CTkLabel(master=root, text="Your generated password will appear here")
 password_label.grid(row=6, column=0, columnspan=2, padx=10, pady=5)
+
+
+def copy_to_clipboard():
+    # Get the text to copy
+    text_to_copy = "Text to copy to clipboard"  # Replace with your actual text
+    
+    # Copy the text to the clipboard
+    pyperclip.copy(text_to_copy)
+    
+    # Show a message box to indicate success
+    messagebox.showinfo("Copy to Clipboard", "Text copied to clipboard successfully!")
+   
+# Load the copy icon image
+copy_icon = tk.PhotoImage(file="copy.png")
+
+# Create the button with the copy icon
+copy_button = customtkinter.CTkButton(master=root, text="Copy", image=copy_icon, compound="left", command=copy_to_clipboard)
+copy_button.grid(row=6, column=0, padx=10, pady=6)
 
 # save password button 
 
