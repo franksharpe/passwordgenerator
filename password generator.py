@@ -232,6 +232,8 @@ password_label.grid(row=6, column=0, columnspan=2, sticky="nsew", padx=(10, 0)) 
 
 def copy_to_clipboard():
     
+    print("Label clicked!")
+    
     # Get the text to copy
     
     text_to_copy = password_label.cget("text")
@@ -243,11 +245,22 @@ def copy_to_clipboard():
     
     # Show a message box to indicate success
     
-    messagebox.showinfo("Copy to Clipboard", "Text copied to clipboard successfully!")
+    CTkMessagebox.CTkMessagebox(title="Copy to Clipboard", message="Text copied to clipboard successfully!")
+    
+
+
    
 # Load the copy icon image with a transparent background
+copy_icon = tk.PhotoImage(file="copy.png").subsample(1)  # Adjust subsample factor as needed
 
-copy_icon = tk.PhotoImage(file="copy.png").subsample(2)  # Adjust subsample factor as needed
+# Create a label widget for the button with a transparent background
+copy_label = tk.Label(root, image=copy_icon, bg="#242424")
+
+# Configure the label to adjust image size and reduce padding
+copy_label.config(image=copy_icon, bg="#242424", padx=5, pady=5)  # Adjust padx and pady values as needed
+
+# Pack or grid the label widget as desired
+copy_label.grid(row=6, column=1, sticky="nsew", padx=(0, 10))  # Centered vertically and horizontally
 
 
 # Create a label widget for the button with a transparent background
@@ -255,8 +268,9 @@ copy_icon = tk.PhotoImage(file="copy.png").subsample(2)  # Adjust subsample fact
 copy_label = tk.Label(root, image=copy_icon, bg="#242424")
 copy_label.grid(row=6, column=1, sticky="nsew", padx=(0, 10))  # Centered vertically and horizontally
 
-# Bind the copy_to_clipboard function to the label
-copy_label.bind("<Button-1>", copy_to_clipboard)
+# Bind the copy_to_clipboard function to the label without passing any arguments
+copy_label.bind("<Button-1>", lambda event: copy_to_clipboard())
+
 
 
 
