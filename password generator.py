@@ -184,6 +184,14 @@ root = customtkinter.CTk()
 #title of app 
 root.title("Password Generator")
 
+# Create a Label widget for the heading
+heading_label = tk.Label(root, text="Swiftly create a safe, \nunpredictable passphrase using \n my tool below", font=("Helvetica", 13))
+
+# Place the Label widget using the grid layout manager
+heading_label.grid(row=1, column=0 ,columnspan=3, padx=10, pady=10)
+
+
+
 #size of screen
 root.geometry("390x500")
 
@@ -193,12 +201,12 @@ customtkinter.set_default_color_theme("blue")
 #length off password
 
 length_label = customtkinter.CTkLabel(master=root, text="Enter the length of the password:")
-length_label.grid(row=0, column=0,padx=10, pady=5)
+length_label.grid(row=3, column=1,padx=10, pady=5)
 
 #password length entry box
 
 length_entry = customtkinter.CTkEntry(master=root, placeholder_text="Password Length")
-length_entry.grid(row=0, column=1, padx=10, pady=5)
+length_entry.grid(row=3, column=2, padx=10, pady=5)
 
 
 #true or flase for option 
@@ -217,23 +225,23 @@ symbols_check = customtkinter.CTkCheckBox(master=root, text="Include symbols?", 
 
 # size and placement
 
-uppercase_check.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
-lowercase_check.grid(row=2, column=0, columnspan=2, padx=10, pady=5)
-digits_check.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
-symbols_check.grid(row=4, column=0, columnspan=2, padx=10, pady=5)
+uppercase_check.grid(row=5, column=0, columnspan=2, padx=10, pady=5)
+lowercase_check.grid(row=6, column=0, columnspan=2, padx=10, pady=5)
+digits_check.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
+symbols_check.grid(row=8, column=0, columnspan=2, padx=10, pady=5)
 
 
 
 # Generate button
 
 generate_button = customtkinter.CTkButton(master=root, text="Generate Password", command=generate_password)
-generate_button.grid(row=5, column=0, columnspan=2, padx=10, pady=5)
+generate_button.grid(row=9, column=0, columnspan=2, padx=10, pady=5)
 
 
 # password label about where will generate
 
 password_label = customtkinter.CTkLabel(master=root, text="")
-password_label.grid(row=6, column=0, columnspan=2, sticky="nsew", padx=(10, 0))  # Centered vertically and horizontally
+password_label.grid(row=10, column=0, columnspan=2, sticky="nsew", padx=(10, 0))  # Centered vertically and horizontally
 
 # Function to hide the temporary message
 def hide_temp_message():
@@ -273,7 +281,7 @@ copy_label = tk.Label(root, image=copy_icon, bg="#242424")
 copy_label.config(image=copy_icon, bg="#242424", padx=5, pady=5)  
 
 # Pack or grid the label widget as desired
-copy_label.grid(row=6, column=1, sticky="nsew", padx=(0, 10)) 
+copy_label.grid(row=10, column=1, sticky="nsew", padx=(0, 10)) 
 
 copy_label.bind("<Button-1>", lambda event: (copy_to_clipboard(), display_temp_message("Password copied to clipboard")))
 
@@ -285,7 +293,7 @@ copy_label.bind("<Button-1>", lambda event: (copy_to_clipboard(), display_temp_m
 # save password button 
 
 save_button = customtkinter.CTkButton(master=root, text="Save Password", command=save_password)
-save_button.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
+save_button.grid(row=11, column=0, columnspan=2, padx=10, pady=5)
 
 #show button instead of hidden 
 
@@ -302,12 +310,12 @@ def show_button():
 #display button to show entery 
 
 display_button = customtkinter.CTkButton(master=root, text="Display Passwords", command=show_button)
-display_button.grid(row=8, column=0, columnspan=2, padx=10, pady=5)
+display_button.grid(row=12, column=0, columnspan=2, padx=10, pady=5)
 
 #displays when clicked uses entry to pop up passwords saved 
 
 label = customtkinter.CTkEntry(master=root, placeholder_text="")
-label.grid(row=9 , column=0, columnspan=2, padx=10, pady=5)
+label.grid(row=13 , column=0, columnspan=2, padx=10, pady=5)
 label.grid_remove()
 
 #use enter to submit
@@ -317,7 +325,7 @@ label.bind("<Return>", get_password )
 #shows a input button to take entry if cant use enter
 
 labele = customtkinter.CTkButton(master=root, text="", command=get_password , width=0, height=0)
-labele.grid(row=10, column=0, columnspan=2, padx=10, pady=5)
+labele.grid(row=14, column=0, columnspan=2, padx=10, pady=5)
 labele.grid_remove() 
 
 root.mainloop()
