@@ -171,30 +171,21 @@ def get_password():
     
     
 
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+#app main page
+
+
+
 
 #root is the name
+
 root = customtkinter.CTk()
 
 #title of app 
 root.title("Password Generator")
 
 #size of screen
-root.geometry("430x932")
+root.geometry("390x500")
 
 #colour theme (green, darkblue, blue)
 customtkinter.set_default_color_theme("blue")
@@ -260,7 +251,7 @@ temp_message_label = tk.Label(root, text="", bg="white", padx=10, pady=5 , width
 
 def copy_to_clipboard():
     global temp_message_label 
-    print("Label clicked!")
+    print("text copy clicked!")
     
     # Get the text to copy
     text_to_copy = password_label.cget("text")
@@ -273,16 +264,16 @@ def copy_to_clipboard():
     display_temp_message("Password copied to clipboard")
 
 # Load the copy icon image with a transparent background
-copy_icon = tk.PhotoImage(file="copy.png").subsample(1)  # Adjust subsample factor as needed
+copy_icon = tk.PhotoImage(file="copy.png").subsample(1)  
 
 # Create a label widget for the button with a transparent background
 copy_label = tk.Label(root, image=copy_icon, bg="#242424")
 
 # Configure the label to adjust image size and reduce padding
-copy_label.config(image=copy_icon, bg="#242424", padx=5, pady=5)  # Adjust padx and pady values as needed
+copy_label.config(image=copy_icon, bg="#242424", padx=5, pady=5)  
 
 # Pack or grid the label widget as desired
-copy_label.grid(row=6, column=1, sticky="nsew", padx=(0, 10))  # Centered vertically and horizontally
+copy_label.grid(row=6, column=1, sticky="nsew", padx=(0, 10)) 
 
 copy_label.bind("<Button-1>", lambda event: (copy_to_clipboard(), display_temp_message("Password copied to clipboard")))
 
